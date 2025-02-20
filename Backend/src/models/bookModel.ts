@@ -18,8 +18,12 @@ export const Book = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    publishDate: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
     price: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     authorId: {

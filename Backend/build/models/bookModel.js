@@ -18,8 +18,12 @@ exports.Book = db_1.sequelize.define("Book", {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
     },
+    publishDate: {
+        type: sequelize_1.DataTypes.DATE,
+        allowNull: false,
+    },
     price: {
-        type: sequelize_1.DataTypes.FLOAT,
+        type: sequelize_1.DataTypes.INTEGER,
         allowNull: false,
     },
     authorId: {

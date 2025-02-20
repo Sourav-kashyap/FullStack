@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteCategory = exports.updateCategory = exports.createCategory = exports.getCategoryById = exports.getAllCategory = void 0;
+exports.deleteCategory = exports.updateCategory = exports.createCategory = exports.getAllCategory = void 0;
 const categoryModel_1 = require("../models/categoryModel");
 const getAllCategory = async (req, res) => {
     try {
@@ -20,26 +20,24 @@ const getAllCategory = async (req, res) => {
     }
 };
 exports.getAllCategory = getAllCategory;
-const getCategoryById = async (req, res) => {
-    try {
-        const categoryId = req.params.id;
-        if (!categoryId) {
-            res.status(400).json({ message: "invalid book id" });
-        }
-        const category = await categoryModel_1.Category.findByPk(categoryId);
-        if (!category) {
-            res.status(400).json({
-                message: "Category not found",
-            });
-            return;
-        }
-        res.status(200).json(category);
-    }
-    catch (error) {
-        res.status(500).json({ message: "Error fetching Category", error });
-    }
-};
-exports.getCategoryById = getCategoryById;
+// export const getCategoryById = async (req: Request, res: Response) => {
+//   try {
+//     const categoryId = req.params.id;
+//     if (!categoryId) {
+//       res.status(400).json({ message: "invalid book id" });
+//     }
+//     const category = await Category.findByPk(categoryId);
+//     if (!category) {
+//       res.status(400).json({
+//         message: "Category not found",
+//       });
+//       return;
+//     }
+//     res.status(200).json(category);
+//   } catch (error) {
+//     res.status(500).json({ message: "Error fetching Category", error });
+//   }
+// };
 const createCategory = (req, res) => {
     try {
         const { name } = req.body;

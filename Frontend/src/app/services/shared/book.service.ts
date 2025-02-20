@@ -8,19 +8,21 @@ import { Book } from "../../interface/bookInterface";
   providedIn: "root",
 })
 export class BookService {
-  private apiUrl = "http://localhost:8000/api/v1/books";
+  private apiUrl = "http://localhost:8088/api/v1/book";
 
   constructor(private http: HttpClient) {}
 
   getBooks(): Observable<Book[]> {
-    return this.http.get<Book[]>(`${this.apiUrl}/allBooks`);
+    return this.http.get<Book[]>(`${this.apiUrl}/getAllBooks`);
   }
 
   addBook(bookData: Book): Observable<Book> {
-    return this.http.post<Book>(`${this.apiUrl}/addBook`, bookData).pipe(
+    return this.http.post<Book>(`${this.apiUrl}/createBook`, bookData).pipe(
       tap((response) => console.log("Book added successfully:", response)),
       catchError((error) => {
         console.error("Error adding book:", error);
+        // You can also log the full error response body here
+        console.error("Error response:", error?.error); // Inspect error body
         return throwError(() => error);
       })
     );

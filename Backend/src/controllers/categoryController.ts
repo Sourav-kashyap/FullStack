@@ -20,28 +20,28 @@ export const getAllCategory = async (req: Request, res: Response) => {
   }
 };
 
-export const getCategoryById = async (req: Request, res: Response) => {
-  try {
-    const categoryId = req.params.id;
+// export const getCategoryById = async (req: Request, res: Response) => {
+//   try {
+//     const categoryId = req.params.id;
 
-    if (!categoryId) {
-      res.status(400).json({ message: "invalid book id" });
-    }
+//     if (!categoryId) {
+//       res.status(400).json({ message: "invalid book id" });
+//     }
 
-    const category = await Category.findByPk(categoryId);
+//     const category = await Category.findByPk(categoryId);
 
-    if (!category) {
-      res.status(400).json({
-        message: "Category not found",
-      });
-      return;
-    }
+//     if (!category) {
+//       res.status(400).json({
+//         message: "Category not found",
+//       });
+//       return;
+//     }
 
-    res.status(200).json(category);
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching Category", error });
-  }
-};
+//     res.status(200).json(category);
+//   } catch (error) {
+//     res.status(500).json({ message: "Error fetching Category", error });
+//   }
+// };
 
 export const createCategory = (req: Request, res: Response) => {
   try {

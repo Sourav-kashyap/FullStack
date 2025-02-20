@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@types/morgan": "^1.9.9",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "mysql2": "^3.12.0",
@@ -27,6 +28,7 @@
   "homepage": "https://github.com/Sourav-kashyap/Sequelize-Nodejs#readme",
   "description": "",
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/dotenv": "^8.2.3",
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.1",

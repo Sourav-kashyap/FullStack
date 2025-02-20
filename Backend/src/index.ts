@@ -1,6 +1,6 @@
 import express, { Application, Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
-
+import cors from "cors";
 // import { Book } from "./models/bookModel";
 // import { Author } from "./models/authorModel";
 // import { Category } from "./models/categoryModel";
@@ -17,7 +17,7 @@ const app: Application = express();
 const PORT: number = Number(process.env.PORT) || 8088;
 
 app.use(express.json());
-
+app.use(cors());
 app.use("/api/v1/book", bookRouter);
 app.use("/api/v1/author", authorRouter);
 app.use("/api/v1/category", categoryRouter);

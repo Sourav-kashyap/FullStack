@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteAuthor = exports.updateAuthor = exports.createAuthor = exports.getAuthorById = exports.getAllAuthor = void 0;
+exports.deleteAuthor = exports.updateAuthor = exports.createAuthor = exports.getAllAuthor = void 0;
 const authorModel_1 = require("../models/authorModel");
 const getAllAuthor = async (req, res) => {
     try {
@@ -20,26 +20,24 @@ const getAllAuthor = async (req, res) => {
     }
 };
 exports.getAllAuthor = getAllAuthor;
-const getAuthorById = async (req, res) => {
-    try {
-        const authorId = req.params.id;
-        if (!authorId) {
-            res.status(400).json({ message: "invalid Author id" });
-        }
-        const author = await authorModel_1.Author.findByPk(authorId);
-        if (!author) {
-            res.status(400).json({
-                message: "Author not found",
-            });
-            return;
-        }
-        res.status(200).json(author);
-    }
-    catch (error) {
-        res.status(500).json({ message: "Error fetching Author", error });
-    }
-};
-exports.getAuthorById = getAuthorById;
+// export const getAuthorById = async (req: Request, res: Response) => {
+//   try {
+//     const authorId = req.params.id;
+//     if (!authorId) {
+//       res.status(400).json({ message: "invalid Author id" });
+//     }
+//     const author = await Author.findByPk(authorId);
+//     if (!author) {
+//       res.status(400).json({
+//         message: "Author not found",
+//       });
+//       return;
+//     }
+//     res.status(200).json(author);
+//   } catch (error) {
+//     res.status(500).json({ message: "Error fetching Author", error });
+//   }
+// };
 const createAuthor = async (req, res) => {
     try {
         const { name } = req.body;

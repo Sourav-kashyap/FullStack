@@ -19,27 +19,27 @@ export const getAllAuthor = async (req: Request, res: Response) => {
   }
 };
 
-export const getAuthorById = async (req: Request, res: Response) => {
-  try {
-    const authorId = req.params.id;
+// export const getAuthorById = async (req: Request, res: Response) => {
+//   try {
+//     const authorId = req.params.id;
 
-    if (!authorId) {
-      res.status(400).json({ message: "invalid Author id" });
-    }
+//     if (!authorId) {
+//       res.status(400).json({ message: "invalid Author id" });
+//     }
 
-    const author = await Author.findByPk(authorId);
+//     const author = await Author.findByPk(authorId);
 
-    if (!author) {
-      res.status(400).json({
-        message: "Author not found",
-      });
-      return;
-    }
-    res.status(200).json(author);
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching Author", error });
-  }
-};
+//     if (!author) {
+//       res.status(400).json({
+//         message: "Author not found",
+//       });
+//       return;
+//     }
+//     res.status(200).json(author);
+//   } catch (error) {
+//     res.status(500).json({ message: "Error fetching Author", error });
+//   }
+// };
 
 export const createAuthor = async (req: Request, res: Response) => {
   try {

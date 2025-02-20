@@ -18,12 +18,12 @@
       <ng-container *ngIf="searchTerm.trim().length > 0; else allBooks">
         <tr *ngFor="let book of filteredBooks; let i = index">
           <td class="px-4 py-2 text-left">{{ book?.title }}</td>
-          <td class="px-4 py-2 text-left">{{ book?.author }}</td>
+          <td class="px-4 py-2 text-left">{{ book?.Author.name }}</td>
           <td class="px-4 py-2 text-left">{{ book?.isbn }}</td>
           <td class="px-4 py-2 text-left">
             {{ book?.publishDate | date : "dd-MM-yyyy" }}
           </td>
-          <td class="px-4 py-2 text-left">{{ book?.category }}</td>
+          <td class="px-4 py-2 text-left">{{ book?.Category.name }}</td>
           <td class="px-4 py-2 text-left">
             {{ calculateBookAge(book?.publishDate) }}
           </td>
@@ -51,12 +51,12 @@
         <!-- Display User Added Books -->
         <tr *ngFor="let book of books; let i = index">
           <td class="px-4 py-2 text-left">{{ book?.title }}</td>
-          <td class="px-4 py-2 text-left">{{ book?.author }}</td>
+          <td class="px-4 py-2 text-left">{{ book?.Author.name }}</td>
           <td class="px-4 py-2 text-left">{{ book?.isbn }}</td>
           <td class="px-4 py-2 text-left">
             {{ book?.publishDate | date : "dd-MM-yyyy" }}
           </td>
-          <td class="px-4 py-2 text-left">{{ book?.category }}</td>
+          <td class="px-4 py-2 text-left">{{ book?.Category.name }}</td>
           <td class="px-4 py-2 text-left">
             {{ calculateBookAge(book?.publishDate) }}
           </td>
