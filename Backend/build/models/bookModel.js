@@ -19,14 +19,14 @@ exports.Book = db_1.sequelize.define("Book", {
         allowNull: false,
     },
     publishDate: {
-        type: sequelize_1.DataTypes.DATE,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: false,
     },
     price: {
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: false,
     },
-    authorId: {
+    author: {
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -34,7 +34,7 @@ exports.Book = db_1.sequelize.define("Book", {
             key: "id",
         },
     },
-    categoryId: {
+    category: {
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: false,
         references: {

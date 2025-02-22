@@ -28,9 +28,9 @@ export class BookService {
     );
   }
 
-  updateBook(index: number, updatedBook: Book): Observable<Book> {
+  updateBook(index: number, updatedBook: Book, id: number): Observable<Book> {
     return this.http
-      .patch<Book>(`${this.apiUrl}/updateBook/${index}`, updatedBook)
+      .patch<Book>(`${this.apiUrl}/updateBook/${id}`, updatedBook)
       .pipe(
         tap((response) => console.log("Book updated successfully:", response)),
         catchError((error) => {

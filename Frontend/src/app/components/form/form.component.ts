@@ -9,6 +9,7 @@ import { Router } from "@angular/router";
 import { NgFor } from "@angular/common";
 import { BookService } from "../../services/shared/book.service";
 import { NavigationDataServiceService } from "../../services/tempStore/navigation-data-service.service";
+import { error } from "console";
 
 @Component({
   selector: "app-form",
@@ -17,7 +18,8 @@ import { NavigationDataServiceService } from "../../services/tempStore/navigatio
   styleUrl: "./form.component.css",
 })
 export class FormComponent implements OnInit {
-  editIndex: number | null = null;
+  editIndex: number = -1;
+  bookId: number = -1;
 
   constructor(
     private router: Router,
@@ -52,17 +54,42 @@ export class FormComponent implements OnInit {
 
   ngOnInit() {
     const state = this.navigationDataService.getData();
+    console.log("data recieved in state ->", state);
     if (state) {
       this.editIndex = state.index;
-      this.bookDetails.patchValue(state.bookToEdit);
+      this.bookId = state.bookToEdit.id;
+      this.bookDetails.patchValue({
+        title: state.bookToEdit.title,
+        author: state.bookToEdit.Author.name,
+        isbn: state.bookToEdit.isbn,
+        publishDate: state.bookToEdit.publishDate,
+        category: state.bookToEdit.Category.name,
+        price: state.bookToEdit.price,
+      });
+      console.log("set in the form and clear from the state");
       this.navigationDataService.clearData();
     }
   }
 
   onSubmit() {
     const bookData = this.bookDetails.value;
-    if (this.editIndex !== null) {
-      this.bookService.updateBook(this.editIndex, bookData);
+    console.log("this is the updated data -> ", bookData);
+
+    if (this.editIndex !== -1 && this.bookId !== -1) {
+      this.bookService
+        .updateBook(this.editIndex, bookData, this.bookId)
+        .subscribe({
+          next: (res) => {
+            console.log("Api update book successfull", res);
+          },
+          error: (error) => {
+            console.log("Api return error while updating the book");
+          },
+          complete: () => {
+            console.log("complete api update controller call");
+          },
+        });
+      console.log("sent data to api book service function");
     } else {
       this.bookService.addBook(bookData).subscribe({
         next: (response) => console.log("API Response:", response),
@@ -70,5 +97,6 @@ export class FormComponent implements OnInit {
       });
     }
     this.router.navigate(["/display-books"]);
+    console.log("navigate to display book form");
   }
 }

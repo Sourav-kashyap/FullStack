@@ -10,6 +10,7 @@ export class NavigationDataServiceService {
 
   setData(data: any) {
     this.data = data;
+    console.log("dataset successfully");
   }
 
   getData() {

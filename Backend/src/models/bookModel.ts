@@ -19,14 +19,14 @@ export const Book = sequelize.define(
       allowNull: false,
     },
     publishDate: {
-      type: DataTypes.DATE,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     price: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    authorId: {
+    author: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -34,7 +34,7 @@ export const Book = sequelize.define(
         key: "id",
       },
     },
-    categoryId: {
+    category: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {

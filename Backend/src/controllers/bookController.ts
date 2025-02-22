@@ -2,11 +2,12 @@ import { Request, Response } from "express";
 import { Book } from "../models/bookModel";
 import { Author } from "../models/authorModel";
 import { Category } from "../models/categoryModel";
+import { where } from "sequelize";
 
 export const getAllBooks = async (req: Request, res: Response) => {
   try {
     const books = await Book.findAll({
-      attributes: ["title", "isbn", "publishDate", "price"],
+      attributes: ["id", "title", "isbn", "publishDate", "price"],
       include: [
         {
           model: Author,
@@ -60,36 +61,36 @@ export const createBook = async (req: Request, res: Response) => {
     const { title, author, isbn, publishDate, category, price } = req.body;
 
     if (!title || !author || !isbn || !publishDate || !category || !price) {
-      return res.status(400).json({ message: "All fields are required" });
+      res.status(400).json({ message: "All fields are required" });
+      return;
     }
 
     let isAuthor = await Author.findOne({ where: { name: author } });
     if (!isAuthor) {
       isAuthor = await Author.create({ name: author });
     }
+    console.log("isAuthor ->", isAuthor);
 
     let isCategory = await Category.findOne({ where: { name: category } });
     if (!isCategory) {
-      return res.status(400).json({ message: "Category not found" });
+      res.status(400).json({ message: "Category not found" });
+      return;
     }
-
-    console.log("Author and Category found/created");
 
     const book = await Book.create({
       title,
       isbn,
       publishDate,
       price,
-      authorId: isAuthor.dataValues.id,
-      categoryId: isCategory.dataValues.id,
+      author: isAuthor.dataValues.id,
+      category: isCategory.dataValues.id,
     });
 
-    console.log("Book created successfully:", book);
-
     if (!book) {
-      return res.status(400).json({
+      res.status(400).json({
         message: "Book not created",
       });
+      return;
     }
 
     res.status(201).json({ message: "Book created successfully", book });
@@ -101,9 +102,9 @@ export const createBook = async (req: Request, res: Response) => {
 
 export const updateBook = async (req: Request, res: Response) => {
   try {
-    const { title, isbn, price, authorId, categoryId } = req.body;
+    const { title, isbn, price, publishDate, author, category } = req.body;
 
-    if (!title || !isbn || !price || !authorId || !categoryId) {
+    if (!title || !isbn || !price || !author || !category) {
       res.status(400).json({ message: "All fields are required" });
     }
 
@@ -120,26 +121,25 @@ export const updateBook = async (req: Request, res: Response) => {
       return;
     }
 
-    const author = await Author.findOne({ where: { id: authorId } });
-    if (!author) {
-      res.status(400).json({
-        message: "This Author are not valid first create a new Author",
-      });
-      return;
-    }
+    const authorId = await book.dataValues.author;
 
-    const category = Category.findOne({ where: { id: categoryId } });
-    if (!category) {
-      res.status(400).json({
-        message: "This Category are not valid first create a new Category",
-      });
-      return;
-    }
+    const newAuthorName = await Author.update(
+      { name: author },
+      { where: { id: authorId } }
+    );
+
+    const categoryId = await book.dataValues.category;
+
+    const newCategoryName = await Category.update(
+      { name: category },
+      { where: { id: categoryId } }
+    );
 
     const updatedBook = await book.update({
       title,
       isbn,
       price,
+      publishDate,
       authorId,
       categoryId,
     });

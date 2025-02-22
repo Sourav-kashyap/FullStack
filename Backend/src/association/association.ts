@@ -3,19 +3,19 @@ import { Author } from "../models/authorModel";
 import { Category } from "../models/categoryModel";
 
 Author.hasMany(Book, {
-  foreignKey: "authorId",
+  foreignKey: "author",
   onDelete: "CASCADE",
 });
 
 Book.belongsTo(Author, {
-  foreignKey: "authorId",
+  foreignKey: "author",
 });
 
 Category.hasMany(Book, {
-  foreignKey: "categoryId",
+  foreignKey: "category",
   onDelete: "CASCADE",
 });
 
 Book.belongsTo(Category, {
-  foreignKey: "categoryId",
+  foreignKey: "category",
 });

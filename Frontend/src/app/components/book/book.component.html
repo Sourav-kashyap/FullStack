@@ -3,6 +3,7 @@
   <table class="table-auto w-full border-collapse shadow-lg rounded-lg">
     <thead class="bg-gray-800 text-white">
       <tr>
+        <th class="px-4 py-2 text-left">Id</th>
         <th class="px-4 py-2 text-left">Title</th>
         <th class="px-4 py-2 text-left">Author</th>
         <th class="px-4 py-2 text-left">ISBN</th>
@@ -17,6 +18,7 @@
       <!-- Show Filtered Books if searchQuery is not empty -->
       <ng-container *ngIf="searchTerm.trim().length > 0; else allBooks">
         <tr *ngFor="let book of filteredBooks; let i = index">
+          <td class="px-4 py-2 text-left">{{ book?.id }}</td>
           <td class="px-4 py-2 text-left">{{ book?.title }}</td>
           <td class="px-4 py-2 text-left">{{ book?.Author.name }}</td>
           <td class="px-4 py-2 text-left">{{ book?.isbn }}</td>
@@ -50,6 +52,7 @@
       <ng-template #allBooks>
         <!-- Display User Added Books -->
         <tr *ngFor="let book of books; let i = index">
+          <td class="px-4 py-2 text-left">{{ book?.id }}</td>
           <td class="px-4 py-2 text-left">{{ book?.title }}</td>
           <td class="px-4 py-2 text-left">{{ book?.Author.name }}</td>
           <td class="px-4 py-2 text-left">{{ book?.isbn }}</td>

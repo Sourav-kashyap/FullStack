@@ -88,8 +88,10 @@ export class BookComponent implements OnInit {
 
   editBook(index: number) {
     const bookToEdit = this.books[index];
+    console.log("1 ->", bookToEdit);
     this.navigationDataService?.setData({ bookToEdit, index });
     this.router.navigate(["/book-form"]);
+    console.log("navigate to the book form");
   }
 
   deleteBook(index: number) {
