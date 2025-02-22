@@ -51,7 +51,6 @@ exports.getAllBooks = getAllBooks;
 //   }
 // };
 const createBook = async (req, res) => {
-    console.log("req.body ->", req.body);
     try {
         const { title, author, isbn, publishDate, category, price } = req.body;
         if (!title || !author || !isbn || !publishDate || !category || !price) {
@@ -62,7 +61,6 @@ const createBook = async (req, res) => {
         if (!isAuthor) {
             isAuthor = await authorModel_1.Author.create({ name: author });
         }
-        console.log("isAuthor ->", isAuthor);
         let isCategory = await categoryModel_1.Category.findOne({ where: { name: category } });
         if (!isCategory) {
             res.status(400).json({ message: "Category not found" });

@@ -56,7 +56,6 @@ export const getAllBooks = async (req: Request, res: Response) => {
 // };
 
 export const createBook = async (req: Request, res: Response) => {
-  console.log("req.body ->", req.body);
   try {
     const { title, author, isbn, publishDate, category, price } = req.body;
 
@@ -69,7 +68,7 @@ export const createBook = async (req: Request, res: Response) => {
     if (!isAuthor) {
       isAuthor = await Author.create({ name: author });
     }
-    console.log("isAuthor ->", isAuthor);
+
 
     let isCategory = await Category.findOne({ where: { name: category } });
     if (!isCategory) {

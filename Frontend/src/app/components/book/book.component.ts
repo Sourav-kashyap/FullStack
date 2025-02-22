@@ -51,7 +51,6 @@ export class BookComponent implements OnInit {
   fetchBooks() {
     this.bookService.getBooks().subscribe({
       next: (data) => {
-        console.log("Books received:", data);
         this.books = data;
       },
       error: (error) => {
@@ -88,14 +87,21 @@ export class BookComponent implements OnInit {
 
   editBook(index: number) {
     const bookToEdit = this.books[index];
-    console.log("1 ->", bookToEdit);
+
     this.navigationDataService?.setData({ bookToEdit, index });
     this.router.navigate(["/book-form"]);
-    console.log("navigate to the book form");
   }
 
   deleteBook(index: number) {
-    this.bookService.deleteBook(index);
+    const bookIDelete = this.books[index];
+    this.bookService.deleteBook(bookIDelete.id).subscribe({
+      next: (res) => {
+        console.log("Book delete ", res);
+      },
+      error: (err) => {
+        console.log("Error", err);
+      },
+    });
   }
 
   navigateToBookForm() {

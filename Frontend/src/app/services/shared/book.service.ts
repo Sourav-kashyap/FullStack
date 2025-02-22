@@ -40,8 +40,10 @@ export class BookService {
       );
   }
 
-  deleteBook(index: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/deleteBook/${index}`).pipe(
+  deleteBook(id: number): Observable<void> {
+    console.log("id recieved in the api ->", id);
+
+    return this.http.delete<void>(`${this.apiUrl}/deleteBook/${id}`).pipe(
       tap(() => console.log("Book deleted successfully:")),
       catchError((error) => {
         console.error("Error while deleting book:", error);

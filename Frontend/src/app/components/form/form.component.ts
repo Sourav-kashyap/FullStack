@@ -54,7 +54,6 @@ export class FormComponent implements OnInit {
 
   ngOnInit() {
     const state = this.navigationDataService.getData();
-    console.log("data recieved in state ->", state);
     if (state) {
       this.editIndex = state.index;
       this.bookId = state.bookToEdit.id;
@@ -66,14 +65,13 @@ export class FormComponent implements OnInit {
         category: state.bookToEdit.Category.name,
         price: state.bookToEdit.price,
       });
-      console.log("set in the form and clear from the state");
+
       this.navigationDataService.clearData();
     }
   }
 
   onSubmit() {
     const bookData = this.bookDetails.value;
-    console.log("this is the updated data -> ", bookData);
 
     if (this.editIndex !== -1 && this.bookId !== -1) {
       this.bookService
@@ -89,7 +87,6 @@ export class FormComponent implements OnInit {
             console.log("complete api update controller call");
           },
         });
-      console.log("sent data to api book service function");
     } else {
       this.bookService.addBook(bookData).subscribe({
         next: (response) => console.log("API Response:", response),
@@ -97,6 +94,5 @@ export class FormComponent implements OnInit {
       });
     }
     this.router.navigate(["/display-books"]);
-    console.log("navigate to display book form");
   }
 }
