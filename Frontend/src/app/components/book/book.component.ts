@@ -78,9 +78,9 @@ export class BookComponent implements OnInit {
       this.filteredBooks = [...this.books].filter(
         (book) =>
           book.title.toLowerCase().includes(searchLower) ||
-          book.author.toLowerCase().includes(searchLower) ||
+          book.Author.name.toLowerCase().includes(searchLower) ||
           String(book.isbn).includes(searchLower) || // Convert isbn to string
-          book.category.toLowerCase().includes(searchLower)
+          book.Category.name.toLowerCase().includes(searchLower)
       );
     }
   }
