@@ -57,7 +57,7 @@ const createBook = async (req, res) => {
             res.status(400).json({ message: "All fields are required" });
             return;
         }
-        let isAuthor = await authorModel_1.Author.findOne({ where: { name: author } });
+        let isAuthor = await authorModel_1.Author.findOne({ where: { name: author.trim() } });
         if (!isAuthor) {
             isAuthor = await authorModel_1.Author.create({ name: author });
         }

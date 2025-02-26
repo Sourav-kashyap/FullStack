@@ -1,7 +1,9 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../db/db";
+import { Database } from "../db/db";
 
-export const Category = sequelize.define(
+const instance = Database.getInstance();
+
+export const Category = instance.sequelize.define(
   "Category",
   {
     id: {

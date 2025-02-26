@@ -64,7 +64,7 @@ export const createBook = async (req: Request, res: Response) => {
       return;
     }
 
-    let isAuthor = await Author.findOne({ where: { name: author } });
+    let isAuthor = await Author.findOne({ where: { name: author.trim() } });
     if (!isAuthor) {
       isAuthor = await Author.create({ name: author });
     }

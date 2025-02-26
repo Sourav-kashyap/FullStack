@@ -31,13 +31,8 @@ app.get("/", (req, res) => {
 app.listen(PORT, async () => {
     try {
         console.log(`Server running on port is ${PORT}`);
-        await (0, db_1.dbConnect)();
-        (async () => {
-            await db_1.sequelize
-                .sync({ force: false })
-                .then(() => console.log("Database synchronized successfully."))
-                .catch((error) => console.error("Error synchronizing the database:", error));
-        })();
+        const instance = db_1.Database.getInstance();
+        instance.dbConnect();
     }
     catch (error) {
         console.error("Error starting server:", error);

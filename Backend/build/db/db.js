@@ -1,19 +1,31 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.dbConnect = exports.sequelize = void 0;
+exports.Database = void 0;
 const sequelize_1 = require("sequelize");
-exports.sequelize = new sequelize_1.Sequelize("bms", "sourav", "sourav", {
-    host: "localhost",
-    port: 3306,
-    dialect: "mysql",
-});
-const dbConnect = async () => {
-    try {
-        await exports.sequelize.authenticate();
-        console.log("DB Connection has been established successfully.");
+class Database {
+    static instance;
+    sequelize;
+    constructor() {
+        this.sequelize = new sequelize_1.Sequelize("bms", "sourav", "sourav", {
+            host: "localhost",
+            port: 3306,
+            dialect: "mysql",
+        });
     }
-    catch (error) {
-        console.error("Unable to connect to the database:", error);
+    static getInstance() {
+        if (!Database.instance) {
+            Database.instance = new Database();
+        }
+        return Database.instance;
     }
-};
-exports.dbConnect = dbConnect;
+    async dbConnect() {
+        try {
+            await this.sequelize.authenticate();
+            console.log("DB Connection has been established successfully.");
+        }
+        catch (error) {
+            console.error("Unable to connect to the database:", error);
+        }
+    }
+}
+exports.Database = Database;
