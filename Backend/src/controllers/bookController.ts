@@ -69,7 +69,6 @@ export const createBook = async (req: Request, res: Response) => {
       isAuthor = await Author.create({ name: author });
     }
 
-
     let isCategory = await Category.findOne({ where: { name: category } });
     if (!isCategory) {
       res.status(400).json({ message: "Category not found" });
@@ -103,56 +102,77 @@ export const updateBook = async (req: Request, res: Response) => {
   try {
     const { title, isbn, price, publishDate, author, category } = req.body;
 
+    // Validate the required fields
     if (!title || !isbn || !price || !author || !category) {
-      res.status(400).json({ message: "All fields are required" });
+      return res.status(400).json({ message: "All fields are required" });
     }
 
     const bookId = req.params.id;
 
     if (!bookId) {
-      res.status(400).json({ message: "invalid Book id" });
+      return res.status(400).json({ message: "Invalid Book ID" });
     }
 
+    // Find the book by primary key
     const book = await Book.findByPk(bookId);
 
     if (!book) {
-      res.status(400).json({ mesasge: "Book not found" });
-      return;
+      return res.status(404).json({ message: "Book not found" });
     }
 
-    const authorId = await book.dataValues.author;
-
-    const newAuthorName = await Author.update(
-      { name: author },
-      { where: { id: authorId } }
-    );
-
-    const categoryId = await book.dataValues.category;
-
-    const newCategoryName = await Category.update(
-      { name: category },
-      { where: { id: categoryId } }
-    );
-
-    const updatedBook = await book.update({
+    // Update title, isbn, price, and publishDate
+    await book.update({
       title,
       isbn,
       price,
       publishDate,
-      authorId,
-      categoryId,
     });
 
-    if (!updateBook) {
-      res.status(400).json({
-        message: "Book not updated",
+    // Handle author update
+    if (book.dataValues.author !== author) {
+      let authorId = book.dataValues.author;
+
+      // Check if the new author exists in the database
+      const newAuthor = await Author.findOne({ where: { name: author } });
+
+      if (newAuthor) {
+        // If author exists, update the author ID in the book
+        authorId = newAuthor.dataValues.id;
+      } else {
+        // If author does not exist, create a new author and use the new author ID
+        const newAuthorCreated = await Author.create({ name: author });
+        authorId = newAuthorCreated.dataValues.id;
+      }
+
+      // Update the book with the new author ID
+      await book.update({
+        author: authorId,
       });
-      return;
     }
 
-    res.status(201).json({ message: "Book Updated successfully", updateBook });
+    // Handle category update
+    if (book.dataValues.category !== category) {
+      // Find the category in the database
+      const newCategory = await Category.findOne({ where: { name: category } });
+
+      if (!newCategory) {
+        return res.status(400).json({ message: "Category not found" });
+      }
+
+      // Update the book with the new category ID
+      await book.update({
+        category: newCategory.dataValues.id,
+      });
+    }
+
+    // Respond with success message and the updated book
+    res.status(200).json({
+      message: "Book updated successfully",
+      book,
+    });
   } catch (error) {
-    res.status(500).json({ message: "Error while updating a Book", error });
+    console.error(error);
+    res.status(500).json({ message: "Error while updating the book", error });
   }
 };
 

@@ -28,16 +28,16 @@ app.get("/", (req, res) => {
 // Book.sync();
 // Author.sync();
 // Category.sync();
-(async () => {
-    await db_1.sequelize
-        .sync({ force: false })
-        .then(() => console.log("Database synchronized successfully."))
-        .catch((error) => console.error("Error synchronizing the database:", error));
-})();
 app.listen(PORT, async () => {
     try {
         console.log(`Server running on port is ${PORT}`);
         await (0, db_1.dbConnect)();
+        (async () => {
+            await db_1.sequelize
+                .sync({ force: false })
+                .then(() => console.log("Database synchronized successfully."))
+                .catch((error) => console.error("Error synchronizing the database:", error));
+        })();
     }
     catch (error) {
         console.error("Error starting server:", error);
