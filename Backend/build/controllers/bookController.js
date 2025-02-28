@@ -95,16 +95,19 @@ const updateBook = async (req, res) => {
         const { title, isbn, price, publishDate, author, category } = req.body;
         // Validate the required fields
         if (!title || !isbn || !price || !author || !category) {
-            return res.status(400).json({ message: "All fields are required" });
+            res.status(400).json({ message: "All fields are required" });
+            return;
         }
         const bookId = req.params.id;
         if (!bookId) {
-            return res.status(400).json({ message: "Invalid Book ID" });
+            res.status(400).json({ message: "Invalid Book ID" });
+            return;
         }
         // Find the book by primary key
         const book = await bookModel_1.Book.findByPk(bookId);
         if (!book) {
-            return res.status(404).json({ message: "Book not found" });
+            res.status(404).json({ message: "Book not found" });
+            return;
         }
         // Update title, isbn, price, and publishDate
         await book.update({
@@ -137,7 +140,8 @@ const updateBook = async (req, res) => {
             // Find the category in the database
             const newCategory = await categoryModel_1.Category.findOne({ where: { name: category } });
             if (!newCategory) {
-                return res.status(400).json({ message: "Category not found" });
+                res.status(400).json({ message: "Category not found" });
+                return;
             }
             // Update the book with the new category ID
             await book.update({
