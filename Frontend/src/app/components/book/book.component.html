@@ -20,12 +20,12 @@
         <tr *ngFor="let book of filteredBooks; let i = index">
           <td class="px-4 py-2 text-left">{{ book?.id }}</td>
           <td class="px-4 py-2 text-left">{{ book?.title }}</td>
-          <td class="px-4 py-2 text-left">{{ book?.Author.name }}</td>
+          <td class="px-4 py-2 text-left">{{ book?.Author?.name }}</td>
           <td class="px-4 py-2 text-left">{{ book?.isbn }}</td>
           <td class="px-4 py-2 text-left">
             {{ book?.publishDate | date : "dd-MM-yyyy" }}
           </td>
-          <td class="px-4 py-2 text-left">{{ book?.Category.name }}</td>
+          <td class="px-4 py-2 text-left">{{ book?.Category?.name }}</td>
           <td class="px-4 py-2 text-left">
             {{ calculateBookAge(book?.publishDate) }}
           </td>
@@ -54,12 +54,12 @@
         <tr *ngFor="let book of books; let i = index">
           <td class="px-4 py-2 text-left">{{ book?.id }}</td>
           <td class="px-4 py-2 text-left">{{ book?.title }}</td>
-          <td class="px-4 py-2 text-left">{{ book?.Author.name }}</td>
+          <td class="px-4 py-2 text-left">{{ book?.Author?.name }}</td>
           <td class="px-4 py-2 text-left">{{ book?.isbn }}</td>
           <td class="px-4 py-2 text-left">
             {{ book?.publishDate | date : "dd-MM-yyyy" }}
           </td>
-          <td class="px-4 py-2 text-left">{{ book?.Category.name }}</td>
+          <td class="px-4 py-2 text-left">{{ book?.Category?.name }}</td>
           <td class="px-4 py-2 text-left">
             {{ calculateBookAge(book?.publishDate) }}
           </td>

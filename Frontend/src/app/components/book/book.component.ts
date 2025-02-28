@@ -1,13 +1,14 @@
-import { filter } from "rxjs/operators";
 import { Component, OnInit } from "@angular/core";
-import { Router, NavigationEnd } from "@angular/router";
+import { Router } from "@angular/router";
 import { BookService } from "../../services/shared/book.service";
 import { DatePipe, NgFor, NgIf } from "@angular/common";
 import { NavigationDataServiceService } from "../../services/tempStore/navigation-data-service.service";
 import { SearchService } from "../../services/search/search.service";
+import { ApiService } from "../../services/api.service";
 @Component({
   selector: "app-book",
   imports: [NgFor, DatePipe, NgIf],
+  providers: [ApiService, BookService],
   templateUrl: "./book.component.html",
   styleUrl: "./book.component.css",
 })
@@ -52,10 +53,13 @@ export class BookComponent implements OnInit {
     this.bookService.getBooks().subscribe({
       next: (data) => {
         this.books = data;
+        console.log("-->", this.books);
       },
+
       error: (error) => {
         console.error("Error fetching books:", error);
       },
+
       complete: () => {
         console.log("Book fetching completed.");
       },

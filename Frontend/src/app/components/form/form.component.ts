@@ -9,11 +9,12 @@ import { Router } from "@angular/router";
 import { NgFor } from "@angular/common";
 import { BookService } from "../../services/shared/book.service";
 import { NavigationDataServiceService } from "../../services/tempStore/navigation-data-service.service";
-import { error } from "console";
+import { ApiService } from "../../services/api.service";
 
 @Component({
   selector: "app-form",
   imports: [ReactiveFormsModule, NgFor],
+  providers: [BookService, ApiService],
   templateUrl: "./form.component.html",
   styleUrl: "./form.component.css",
 })

@@ -3,6 +3,9 @@ import { Injectable } from "@angular/core";
 import { Observable, throwError } from "rxjs";
 import { tap, catchError } from "rxjs/operators";
 import { Book } from "../../interface/bookInterface";
+import { BookAdapter } from "../../adapters/get-book.adapter";
+import { GetBooksCommand } from "../../commands/get-book.command";
+import { ApiService } from "../api.service";
 
 @Injectable({
   providedIn: "root",
@@ -10,10 +13,16 @@ import { Book } from "../../interface/bookInterface";
 export class BookService {
   private apiUrl = "http://localhost:8088/api/v1/book";
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private readonly bookAdapter: BookAdapter,
+    private readonly apiservice: ApiService
+  ) {}
 
   getBooks(): Observable<Book[]> {
-    return this.http.get<Book[]>(`${this.apiUrl}/getAllBooks`);
+    const command = new GetBooksCommand(this.apiservice, this.bookAdapter);
+    return command.execute();
+    // return this.http.get<Book[]>(`${this.apiUrl}/getAllBooks`);
   }
 
   addBook(bookData: Book): Observable<Book> {
