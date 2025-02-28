@@ -1,7 +1,8 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../db/db";
+import { Database } from "../db/db";
 
-export const Author = sequelize.define(
+const instance = Database.getInstance();
+export const Author = instance.sequelize.define(
   "Author",
   {
     id: {

@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { Book } from "../models/bookModel";
 import { Author } from "../models/authorModel";
 import { Category } from "../models/categoryModel";
-import { where } from "sequelize";
+import { bookSubject } from "../util/BookSubject";
 
 export const getAllBooks = async (req: Request, res: Response) => {
   try {
@@ -64,7 +64,7 @@ export const createBook = async (req: Request, res: Response) => {
       return;
     }
 
-    let isAuthor = await Author.findOne({ where: { name: author } });
+    let isAuthor = await Author.findOne({ where: { name: author.trim() } });
     if (!isAuthor) {
       isAuthor = await Author.create({ name: author });
     }
@@ -90,6 +90,8 @@ export const createBook = async (req: Request, res: Response) => {
       });
       return;
     }
+
+    bookSubject.notifyBookCreated(book);
 
     res.status(201).json({ message: "Book created successfully", book });
   } catch (error) {
@@ -164,7 +166,7 @@ export const updateBook = async (req: Request, res: Response) => {
         category: newCategory.dataValues.id,
       });
     }
-
+    bookSubject.notifyBookUpdated(book);
     // Respond with success message and the updated book
     res.status(200).json({
       message: "Book updated successfully",
@@ -193,7 +195,7 @@ export const deleteBook = async (req: Request, res: Response) => {
       return;
     }
     await book.destroy();
-
+    bookSubject.notifyBookDeteled(Number(bookId));
     res.status(200).json({ message: "Book delete successfully" });
   } catch (error) {
     res.status(500).json({ message: "Error while deleting a Book", error });

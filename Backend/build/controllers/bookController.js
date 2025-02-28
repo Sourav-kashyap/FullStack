@@ -4,6 +4,7 @@ exports.deleteBook = exports.updateBook = exports.createBook = exports.getAllBoo
 const bookModel_1 = require("../models/bookModel");
 const authorModel_1 = require("../models/authorModel");
 const categoryModel_1 = require("../models/categoryModel");
+const BookSubject_1 = require("../util/BookSubject");
 const getAllBooks = async (req, res) => {
     try {
         const books = await bookModel_1.Book.findAll({
@@ -57,7 +58,7 @@ const createBook = async (req, res) => {
             res.status(400).json({ message: "All fields are required" });
             return;
         }
-        let isAuthor = await authorModel_1.Author.findOne({ where: { name: author } });
+        let isAuthor = await authorModel_1.Author.findOne({ where: { name: author.trim() } });
         if (!isAuthor) {
             isAuthor = await authorModel_1.Author.create({ name: author });
         }
@@ -80,6 +81,7 @@ const createBook = async (req, res) => {
             });
             return;
         }
+        BookSubject_1.bookSubject.notifyBookCreated(book);
         res.status(201).json({ message: "Book created successfully", book });
     }
     catch (error) {
@@ -142,6 +144,7 @@ const updateBook = async (req, res) => {
                 category: newCategory.dataValues.id,
             });
         }
+        BookSubject_1.bookSubject.notifyBookUpdated(book);
         // Respond with success message and the updated book
         res.status(200).json({
             message: "Book updated successfully",
@@ -168,6 +171,7 @@ const deleteBook = async (req, res) => {
             return;
         }
         await book.destroy();
+        BookSubject_1.bookSubject.notifyBookDeteled(Number(bookId));
         res.status(200).json({ message: "Book delete successfully" });
     }
     catch (error) {

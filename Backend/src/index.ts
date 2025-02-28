@@ -5,7 +5,7 @@ import cors from "cors";
 // import { Author } from "./models/authorModel";
 // import { Category } from "./models/categoryModel";
 
-import { dbConnect, sequelize } from "./db/db";
+import { Database } from "./db/db";
 import "./association/association";
 import bookRouter from "./routes/bookRoute";
 import authorRouter from "./routes/authorRoute";
@@ -33,15 +33,8 @@ app.get("/", (req: Request, res: Response) => {
 app.listen(PORT, async () => {
   try {
     console.log(`Server running on port is ${PORT}`);
-    await dbConnect();
-    (async () => {
-      await sequelize
-        .sync({ force: false })
-        .then(() => console.log("Database synchronized successfully."))
-        .catch((error) =>
-          console.error("Error synchronizing the database:", error)
-        );
-    })();
+    const instance = Database.getInstance();
+    instance.dbConnect();
   } catch (error) {
     console.error("Error starting server:", error);
   }
