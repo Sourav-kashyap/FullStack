@@ -6,11 +6,7 @@ import { DisplayBookComponent } from "./components/display-book/display-book.com
 import { SigninComponent } from "./pages/signin/signin.component";
 
 export const routes: Routes = [
-  { path: "", redirectTo: "login", pathMatch: "full" },
-  {
-    path: "login",
-    component: SigninComponent,
-  },
+  { path: "", redirectTo: "home", pathMatch: "full" },
   {
     path: "home",
     component: HomeComponent,

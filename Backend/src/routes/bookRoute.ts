@@ -6,12 +6,13 @@ import {
   deleteBook,
   // getBookById,
 } from "../controllers/bookController";
+import { ensureAuthenticated } from "../util/authMiddleware";
 const router = express.Router();
 
-router.get("/getAllBooks", getAllBooks);
-router.post("/createBook", createBook);
+router.get("/getAllBooks", ensureAuthenticated, getAllBooks);
+router.post("/createBook", ensureAuthenticated, createBook);
 // router.get("/getBook/:id", getBookById);
-router.patch("/updateBook/:id", updateBook);
-router.delete("/deleteBook/:id", deleteBook);
+router.patch("/updateBook/:id", ensureAuthenticated, updateBook);
+router.delete("/deleteBook/:id", ensureAuthenticated, deleteBook);
 
 export default router;
