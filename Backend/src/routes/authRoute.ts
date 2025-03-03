@@ -20,7 +20,7 @@ router.get("/logout", function (req, res, next) {
       return next(err);
     }
     req.session.destroy(() => {
-      res.redirect(process.env.APPLICATION_URL as string);
+      res.redirect(process.env.LOGOUT_URL as string);
     });
   });
 });

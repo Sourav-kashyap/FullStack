@@ -8,6 +8,10 @@ import { SigninComponent } from "./pages/signin/signin.component";
 export const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
   {
+    path: "login",
+    component: SigninComponent,
+  },
+  {
     path: "home",
     component: HomeComponent,
   },

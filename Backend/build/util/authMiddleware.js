@@ -5,6 +5,6 @@ const ensureAuthenticated = (req, res, next) => {
     if (req.session.isAuthenticated) {
         return next();
     }
-    res.redirect("/");
+    res.redirect("http://localhost:4200/login");
 };
 exports.ensureAuthenticated = ensureAuthenticated;
