@@ -22,6 +22,14 @@ export class Database {
     try {
       await this.sequelize.authenticate();
       console.log("DB Connection has been established successfully.");
+      (async () => {
+        await this.sequelize
+          .sync({ force: false })
+          .then(() => console.log("Database synchronized successfully."))
+          .catch((error) =>
+            console.error("Error synchronizing the database:", error)
+          );
+      })();
     } catch (error) {
       console.error("Unable to connect to the database:", error);
     }
