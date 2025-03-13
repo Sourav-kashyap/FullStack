@@ -1,92 +1,115 @@
-<!-- Changed mx-w-full to w-full -->
 <div class="overflow-x-auto m-4">
-  <table class="table-auto w-full border-collapse shadow-lg rounded-lg">
-    <thead class="bg-gray-800 text-white">
-      <tr>
-        <th class="px-4 py-2 text-left">Id</th>
-        <th class="px-4 py-2 text-left">Title</th>
-        <th class="px-4 py-2 text-left">Author</th>
-        <th class="px-4 py-2 text-left">ISBN</th>
-        <th class="px-4 py-2 text-left">Publish Date</th>
-        <th class="px-4 py-2 text-left">Category</th>
-        <th class="px-4 py-2 text-left">Age</th>
-        <th class="px-4 py-2 text-left">Price</th>
-        <th class="px-4 py-2 text-left">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Show Filtered Books if searchQuery is not empty -->
-      <ng-container *ngIf="searchTerm.trim().length > 0; else allBooks">
-        <tr *ngFor="let book of filteredBooks; let i = index">
-          <td class="px-4 py-2 text-left">{{ book?.id }}</td>
-          <td class="px-4 py-2 text-left">{{ book?.title }}</td>
-          <td class="px-4 py-2 text-left">{{ book?.Author.name }}</td>
-          <td class="px-4 py-2 text-left">{{ book?.isbn }}</td>
-          <td class="px-4 py-2 text-left">
-            {{ book?.publishDate | date : "dd-MM-yyyy" }}
-          </td>
-          <td class="px-4 py-2 text-left">{{ book?.Category.name }}</td>
-          <td class="px-4 py-2 text-left">
-            {{ calculateBookAge(book?.publishDate) }}
-          </td>
-          <td class="px-4 py-2 text-left">{{ book?.price }}</td>
-          <td class="px-4 py-2 text-left">
-            <div class="flex items-center space-x-2">
-              <button
-                class="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 rounded"
-                (click)="editBook(i)">
-                Edit
-              </button>
+  <div class="flex flex-wrap gap-4">
+    <!-- Show Filtered Books if searchQuery is not empty -->
+    <ng-container *ngIf="searchTerm.trim().length > 0; else allBooks">
+      <div
+        *ngFor="let book of filteredBooks; let i = index"
+        class="group relative w-full border border-teal-500 hover:border-2 h-[370px] overflow-hidden rounded-lg sm:w-[400px] transition-all">
+        <div class="p-3 flex flex-col gap-2">
+          <img
+            [src]="
+              'https://i0.wp.com/apeejay.news/wp-content/uploads/2023/10/281023-10-most-read-books-Feature.jpg?fit=569%2C509&ssl=1'
+            "
+            alt="post cover"
+            class="h-[260px] w-full object-cover group-hover:h-[200px] transition-all duration-300 z-10" />
+          <p class="text-lg font-semibold line-clamp-2">
+            Title: {{ book?.title }}
+          </p>
+          <span class="italic text-sm">Author: {{ book?.Author.name }}</span>
+          <span class="italic text-sm"
+            >Category: {{ book?.Category.name }}</span
+          >
+          <div class="flex justify-between items-center">
+            <span class="text-sm">Price: {{ book?.price }}</span>
+            <span class="text-sm"
+              >{{ calculateBookAge(book?.publishDate) }} years</span
+            >
+          </div>
+        </div>
 
-              <button
-                class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded"
-                (click)="deleteBook(i)">
-                Delete
-              </button>
-            </div>
-          </td>
-        </tr>
-      </ng-container>
+        <!-- Button to trigger dropdown -->
+        <div class="absolute top-2 right-2 z-20">
+          <button class="text-xl font-semibold" (click)="toggleDropdown(i)">
+            &#x2022;&#x2022;&#x2022;
+            <!-- Three dots -->
+          </button>
 
-      <!-- Show API Books & User Added Books when search is empty -->
-      <ng-template #allBooks>
-        <!-- Display User Added Books -->
-        <tr *ngFor="let book of books; let i = index">
-          <td class="px-4 py-2 text-left">{{ book?.id }}</td>
-          <td class="px-4 py-2 text-left">{{ book?.title }}</td>
-          <td class="px-4 py-2 text-left">{{ book?.Author.name }}</td>
-          <td class="px-4 py-2 text-left">{{ book?.isbn }}</td>
-          <td class="px-4 py-2 text-left">
-            {{ book?.publishDate | date : "dd-MM-yyyy" }}
-          </td>
-          <td class="px-4 py-2 text-left">{{ book?.Category.name }}</td>
-          <td class="px-4 py-2 text-left">
-            {{ calculateBookAge(book?.publishDate) }}
-          </td>
-          <td class="px-4 py-2 text-left">{{ book?.price }}</td>
-          <td class="px-4 py-2 text-left">
-            <div class="flex items-center space-x-2">
-              <button
-                class="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 rounded"
-                (click)="editBook(i)">
-                Edit
-              </button>
+          <!-- Dropdown Menu -->
+          <div
+            *ngIf="dropdownVisible === i"
+            class="absolute top-6 right-0 bg-white shadow-lg rounded-lg w-32 p-2 border border-teal-500 z-30">
+            <button
+              (click)="editBook(i)"
+              class="w-full text-left text-green-500 hover:bg-green-100 py-1 px-2 rounded">
+              Edit
+            </button>
+            <button
+              (click)="deleteBook(i)"
+              class="w-full text-left text-red-500 hover:bg-red-100 py-1 px-2 rounded">
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
 
-              <button
-                class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded"
-                (click)="deleteBook(i)">
-                Delete
-              </button>
-            </div>
-          </td>
-        </tr>
-      </ng-template>
-    </tbody>
-  </table>
+    <!-- Show All Books when searchQuery is empty -->
+    <ng-template #allBooks>
+      <div
+        *ngFor="let book of books; let i = index"
+        class="group relative w-full border border-teal-500 hover:border-2 h-[370px] overflow-hidden rounded-lg sm:w-[400px] transition-all">
+        <div class="p-3 flex flex-col gap-2">
+          <img
+            [src]="
+              'https://i0.wp.com/apeejay.news/wp-content/uploads/2023/10/281023-10-most-read-books-Feature.jpg?fit=569%2C509&ssl=1'
+            "
+            alt="post cover"
+            class="h-[260px] w-full object-cover group-hover:h-[200px] transition-all duration-300 z-10" />
+          <p class="text-lg font-semibold line-clamp-2">
+            Title: {{ book?.title }}
+          </p>
+          <span class="italic text-sm">Author: {{ book?.Author.name }}</span>
+          <span class="italic text-sm"
+            >Category: {{ book?.Category.name }}</span
+          >
+          <div class="flex justify-between items-center">
+            <span class="text-sm">Price: {{ book?.price }}</span>
+            <span class="text-sm"
+              >{{ calculateBookAge(book?.publishDate) }} years</span
+            >
+          </div>
+        </div>
+
+        <!-- Button to trigger dropdown -->
+        <div class="absolute top-2 right-2 z-20">
+          <button class="text-xl font-semibold" (click)="toggleDropdown(i)">
+            &#x2022;&#x2022;&#x2022;
+            <!-- Three dots -->
+          </button>
+
+          <!-- Dropdown Menu -->
+          <div
+            *ngIf="dropdownVisible === i"
+            class="absolute top-6 right-0 bg-white shadow-lg rounded-lg w-32 p-2 border border-teal-500 z-30">
+            <button
+              (click)="editBook(i)"
+              class="w-full text-left text-green-500 hover:bg-green-100 py-1 px-2 rounded">
+              Edit
+            </button>
+            <button
+              (click)="deleteBook(i)"
+              class="w-full text-left text-red-500 hover:bg-red-100 py-1 px-2 rounded">
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
 
   <div class="mt-6">
     <button
-      class="btn w-full text-white font-semibold py-3 rounded-md shadow-md bg-gradient-to-r from-blue-400 to-purple-600 hover:from-blue-500 hover:to-purple-700 focus:ring-2 focus:ring-blue-500"
+      class="w-full text-white font-semibold py-3 rounded-md shadow-md bg-gradient-to-r from-blue-400 to-purple-600 hover:from-blue-500 hover:to-purple-700 focus:ring-2 focus:ring-blue-500"
       (click)="navigateToBookForm()">
       Add More Book
     </button>

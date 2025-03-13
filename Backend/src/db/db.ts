@@ -24,7 +24,7 @@ export class Database {
       console.log("DB Connection has been established successfully.");
       (async () => {
         await this.sequelize
-          .sync({ force: true })
+          .sync({ force: false })
           .then(() => console.log("Database synchronized successfully."))
           .catch((error) =>
             console.error("Error synchronizing the database:", error)

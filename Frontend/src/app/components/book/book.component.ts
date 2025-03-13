@@ -7,7 +7,7 @@ import { NavigationDataServiceService } from "../../services/tempStore/navigatio
 import { SearchService } from "../../services/search/search.service";
 @Component({
   selector: "app-book",
-  imports: [NgFor, DatePipe, NgIf],
+  imports: [NgFor, NgIf],
   templateUrl: "./book.component.html",
   styleUrl: "./book.component.css",
 })
@@ -15,6 +15,7 @@ export class BookComponent implements OnInit {
   books: any[] = [];
   filteredBooks: any[] = [];
   searchTerm: string = "";
+  dropdownVisible: number | null = null; // Tracks which dropdown is visible
 
   constructor(
     private router: Router,
@@ -23,6 +24,13 @@ export class BookComponent implements OnInit {
     private searchService: SearchService
   ) {}
 
+  toggleDropdown(index: number): void {
+    if (this.dropdownVisible === index) {
+      this.dropdownVisible = null; // Close dropdown if it's already open
+    } else {
+      this.dropdownVisible = index; // Open dropdown for the clicked book
+    }
+  }
   calculateBookAge(publishDate: string): string {
     const publishedDate = new Date(publishDate);
     const currentDate = new Date();

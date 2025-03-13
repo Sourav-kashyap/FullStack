@@ -1,59 +1,25 @@
-# BMS
+https://prod-website-cdn.studysmarter.de/sites/2/uk/Literary-Fiction-Books-dark-min.png
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.4.
+https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoE7pYK3IMnjq42Z5VsurRLXUvfQqomT_gsg&s
 
-## Development server
+https://b1909488.smushcdn.com/1909488/wp-content/uploads/2023/11/the-rise-of-dark-fantasy-podcast-episode-feature-750x422.jpg?lossy=1&strip=1&webp=1
 
-To start a local development server, run:
+https://static.vecteezy.com/system/resources/thumbnails/000/202/093/small_2x/Science-Fair2-Vectors.jpg
 
-```bash
-ng serve
-```
+https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdCDMiGnEk1NhlxBr1K55R0_U5XieHER7R3A&s
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+https://www.euroschoolindia.com/wp-content/uploads/2023/07/importance-of-history-scaled-1.jpg
 
-## Code scaffolding
+https://cdn.psychologytoday.com/sites/default/files/styles/article-inline-half-caption/public/field_blog_entry_images/2021-10/horrowfotokitashutterstock_1197488362.jpg?itok=F8A9Dl99
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVue_GGMPFAKkVQB_ENX7oRIxwQoC95oG3Cw&s
 
-```bash
-ng generate component component-name
-```
+https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3la_lnna6I2hHorPMTJ2p5ujZUbgVAuPq7w&s
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+https://lms.emeacollege.ac.in/pluginfile.php/5385/course/overviewfiles/criticism.jpg
 
-```bash
-ng generate --help
-```
+https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWlWqPWHZxQamW8Odcx_PLzQF-u4lyNDY7vQ&s
 
-## Building
+https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQz474pnzz-KjVXqgk1WvyRk3uee7ZKe3hnA&s
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJlwvdsPYL3xovPifTbb48SGql3iSNl7hPBA&s
